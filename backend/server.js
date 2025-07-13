@@ -14,8 +14,8 @@ const openai = new OpenAI({
 
 // CORS configuration for deployed frontend and local development
 const allowedOrigins = [
-  "https://jd-automation-frontend.onrender.com", // your frontend Render URL
-  "http://localhost:3000" // for local development
+  "https://jd-ai-automation.onrender.com", 
+  "http://localhost:3000" 
 ]
 
 app.use(cors({
