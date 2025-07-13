@@ -5,6 +5,9 @@ import axios from "axios"
 import { Sparkles, Download, Copy, Loader2 } from "lucide-react"
 import "./JDGenerator.css"
 
+// Use environment variable for API base URL
+const API_BASE = process.env.REACT_APP_API_URL || "https://jd-automation.onrender.com"
+
 const JDGenerator = ({ onSave }) => {
   const [jobTitle, setJobTitle] = useState("")
   const [skills, setSkills] = useState([])
@@ -23,7 +26,7 @@ const JDGenerator = ({ onSave }) => {
 
     setIsLoadingSkills(true)
     try {
-      const response = await axios.post("http://localhost:5000/api/suggest-skills", {
+      const response = await axios.post(`${API_BASE}/api/suggest-skills`, {
         jobTitle: jobTitle.trim(),
       })
       setSuggestedSkills(response.data.skills)
@@ -55,7 +58,7 @@ const JDGenerator = ({ onSave }) => {
 
     setIsLoading(true)
     try {
-      const response = await axios.post("http://localhost:5000/api/generate-jd", {
+      const response = await axios.post(`${API_BASE}/api/generate-jd`, {
         jobTitle: jobTitle.trim(),
         skills,
         companyName: companyName.trim(),
