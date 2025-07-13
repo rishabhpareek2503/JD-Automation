@@ -12,7 +12,16 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "sk-dummy-key-for-demo",
 })
 
-app.use(cors())
+// CORS configuration for deployed frontend and local development
+const allowedOrigins = [
+  "https://jd-automation-frontend.onrender.com", // your frontend Render URL
+  "http://localhost:3000" // for local development
+]
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}))
 app.use(express.json())
 
 const hasValidApiKey = process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== "sk-dummy-key-for-demo"
