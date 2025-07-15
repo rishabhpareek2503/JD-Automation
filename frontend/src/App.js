@@ -4,11 +4,13 @@ import { useState, useEffect } from "react"
 import Sidebar from "./components/Sidebar"
 import JDGenerator from "./components/JDGenerator"
 import Library from "./components/Library"
+import { Menu } from "lucide-react"
 import "./App.css"
 
 function App() {
   const [activeTab, setActiveTab] = useState("generator")
   const [savedJDs, setSavedJDs] = useState([])
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   useEffect(() => {
     const stored = localStorage.getItem("savedJDs")
@@ -34,10 +36,22 @@ function App() {
     localStorage.setItem("savedJDs", JSON.stringify(updated))
   }
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
+
   return (
     <div className="app">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="main-content">
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+      />
+      <button className="mobile-menu-button" onClick={toggleSidebar}>
+        <Menu />
+      </button>
+      <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
         {activeTab === "generator" ? (
           <JDGenerator onSave={saveJD} />
         ) : (
