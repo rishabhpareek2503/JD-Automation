@@ -1,22 +1,27 @@
 "use client"
-
-import { FileText, Library, Sparkles } from "lucide-react"
+import { FileText, Library, Sparkles, X } from "lucide-react"
 import "./Sidebar.css"
 
-const Sidebar = ({ activeTab, setActiveTab }) => {
+const Sidebar = ({ activeTab, setActiveTab, isSidebarOpen, toggleSidebar }) => {
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
       <div className="sidebar-header">
         <div className="logo">
           <Sparkles className="logo-icon" />
           <h2>JD Assistant</h2>
         </div>
+        <button className="sidebar-close-button" onClick={toggleSidebar}>
+          <X />
+        </button>
       </div>
 
       <nav className="sidebar-nav">
         <button
           className={`nav-item ${activeTab === "generator" ? "active" : ""}`}
-          onClick={() => setActiveTab("generator")}
+          onClick={() => {
+            setActiveTab("generator")
+            toggleSidebar() // Close sidebar on item click
+          }}
         >
           <FileText className="nav-icon" />
           <span>JD Generator</span>
@@ -24,7 +29,10 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
         <button
           className={`nav-item ${activeTab === "library" ? "active" : ""}`}
-          onClick={() => setActiveTab("library")}
+          onClick={() => {
+            setActiveTab("library")
+            toggleSidebar() // Close sidebar on item click
+          }}
         >
           <Library className="nav-icon" />
           <span>Library</span>
