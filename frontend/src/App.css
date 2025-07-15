@@ -8,12 +8,41 @@
   flex: 1;
   margin-left: 280px;
   padding: 2rem;
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu-button {
+  display: none; /* Hidden by default on desktop */
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001; /* Above sidebar */
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-button:hover {
+  background: #2563eb;
 }
 
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 0;
+    margin-left: 0; /* Remove fixed margin on mobile */
     padding: 1rem;
+    width: 100%; /* Ensure it takes full width */
+  }
+
+  .main-content.sidebar-open {
+    transform: translateX(280px); /* Push content when sidebar is open */
+  }
+
+  .mobile-menu-button {
+    display: block; /* Show on mobile */
   }
 }
